@@ -29,6 +29,7 @@ func main() {
 		cmd.VersionCmd,
 		cmd.RollbackStateCmd,
 		cmd.CompactGoLevelDBCmd,
+		cmd.ReIndexEventCmd,
 		debug.DebugCmd,
 		cli.NewCompletionCmd(rootCmd, true),
 	)

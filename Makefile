@@ -125,6 +125,9 @@ install:
 	CGO_ENABLED=$(CGO_ENABLED) go install $(BUILD_FLAGS) -tags $(BUILD_TAGS) ./cmd/cometbft
 .PHONY: install
 
+build-rocksdb: go.sum
+	COMETBFT_BUILD_OPTIONS=rocksdb,nostrip make build
+
 ###############################################################################
 ###                               Metrics                                   ###
 ###############################################################################
