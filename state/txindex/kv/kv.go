@@ -94,6 +94,10 @@ func (txi *TxIndex) AddBatch(b *txindex.Batch) error {
 			return err
 		}
 		// index by hash (always)
+		err = storeBatch.Delete(hash)
+		if err != nil {
+			return err
+		}
 		err = storeBatch.Set(hash, rawBytes)
 		if err != nil {
 			return err
