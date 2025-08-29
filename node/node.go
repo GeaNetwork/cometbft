@@ -399,7 +399,12 @@ func createAndStartIndexerService(
 
 	switch config.TxIndex.Indexer {
 	case "kv":
-		store, err := dbProvider(&DBContext{"tx_index", config})
+		//store, err := dbProvider(&DBContext{"tx_index", config})
+		//if err != nil {
+		//	return nil, nil, nil, err
+		//}
+
+		store, err := dbm.NewDB("tx_index", dbm.BackendType(config.DBBackend), config.DBDir())
 		if err != nil {
 			return nil, nil, nil, err
 		}
