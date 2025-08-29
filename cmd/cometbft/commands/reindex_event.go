@@ -3,6 +3,7 @@ package commands
 import (
 	"errors"
 	"fmt"
+	"github.com/cometbft/cometbft/crypto/tmhash"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -178,7 +179,9 @@ func eventReIndex(cmd *cobra.Command, args eventReIndexArgs) error {
 						Tx:     b.Data.Txs[i],
 						Result: *(r.DeliverTxs[i]),
 					}
+					txHash := fmt.Sprintf("%X", tmhash.Sum(tr.Tx))
 
+					fmt.Println(tr.Height, tr.Index, txHash)
 					if err = batch.Add(&tr); err != nil {
 						return fmt.Errorf("adding tx to batch: %w", err)
 					}
