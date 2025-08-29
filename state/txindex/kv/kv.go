@@ -88,6 +88,7 @@ func (txi *TxIndex) AddBatch(b *txindex.Batch) error {
 			return err
 		}
 
+		fmt.Println("Indexing tx hash:", fmt.Sprintf("%X", hash), "height:", result.Height, "index:", result.Index)
 		rawBytes, err := proto.Marshal(result)
 		if err != nil {
 			return err

@@ -38,7 +38,7 @@ func Tx(ctx *rpctypes.Context, hash []byte, prove bool) (*ctypes.ResultTx, error
 		proof = block.Data.Txs.Proof(int(r.Index))
 	}
 
-	fmt.Println(r.Height, r.Index, fmt.Sprintf("%X", hash))
+	fmt.Println("------------------>", r.Height, r.Index, fmt.Sprintf("%X", hash))
 	return &ctypes.ResultTx{
 		Hash:     hash,
 		Height:   r.Height,
