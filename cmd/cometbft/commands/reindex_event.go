@@ -171,7 +171,6 @@ func eventReIndex(cmd *cobra.Command, args eventReIndexArgs) error {
 			var batch *txindex.Batch
 			if e.NumTxs > 0 {
 				batch = txindex.NewBatch(e.NumTxs)
-
 				for i := range b.Data.Txs {
 					tr := abcitypes.TxResult{
 						Height: b.Height,
@@ -181,6 +180,12 @@ func eventReIndex(cmd *cobra.Command, args eventReIndexArgs) error {
 					}
 					txHash := fmt.Sprintf("%X", tmhash.Sum(tr.Tx))
 
+					get, err := args.txIndexer.Get(tmhash.Sum(tr.Tx))
+					if err != nil {
+						fmt.Errorf("getting tx from indexer: %w", err)
+					} else {
+						fmt.Println("found existing tx in indexer:", get.Height, get.Index, txHash)
+					}
 					fmt.Println(tr.Height, tr.Index, txHash)
 					if err = batch.Add(&tr); err != nil {
 						return fmt.Errorf("adding tx to batch: %w", err)
